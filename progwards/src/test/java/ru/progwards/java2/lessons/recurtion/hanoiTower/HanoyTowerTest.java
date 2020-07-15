@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.progwards.java2.lessons.recurtion.hanoyTower.HanoyTower;
 
+
 public class HanoyTowerTest {
     HanoyTower ht;
     String separator = System.lineSeparator();

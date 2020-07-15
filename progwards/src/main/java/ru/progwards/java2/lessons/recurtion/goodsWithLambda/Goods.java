@@ -2,6 +2,7 @@ package ru.progwards.java2.lessons.recurtion.goodsWithLambda;
 
 import java.time.Instant;
 
+
 public class Goods {
     private String name;
     private String number;

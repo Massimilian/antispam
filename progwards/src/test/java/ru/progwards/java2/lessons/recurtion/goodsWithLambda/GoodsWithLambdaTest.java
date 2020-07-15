@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.time.Instant;
 import java.util.List;
 
+
 public class GoodsWithLambdaTest {
     GoodsWithLambda gwl = new GoodsWithLambda();
     List<Goods> goods = List.of(new Goods("Third good", "C3", 1323, 1.0, Instant.now().plusSeconds(315360)),

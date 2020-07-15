@@ -2,7 +2,6 @@ package ru.progwards.java2.lessons.recurtion.hanoyTower;
 
 import java.util.Objects;
 
-
 public class Ring {
     private String name;
     private int value;
