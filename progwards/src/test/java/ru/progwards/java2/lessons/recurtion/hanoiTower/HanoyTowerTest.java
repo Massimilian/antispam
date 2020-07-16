@@ -6,8 +6,8 @@ import ru.progwards.java2.lessons.recurtion.hanoyTower.HanoyTower;
 
 
 public class HanoyTowerTest {
-    HanoyTower ht;
-    String separator = System.lineSeparator();
+    private HanoyTower ht;
+    private String separator = System.lineSeparator();
 
     @Test
     public void WhenTryToBuildHanoyTowerWithTenRingsThenDoIt() {
