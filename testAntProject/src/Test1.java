@@ -1,8 +1,10 @@
+import org.junit.Test;
+
 import java.math.BigInteger;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class Test {
+public class Test1 {
     @Test
     public void test1() {
         test(1, BigInteger.ONE);
