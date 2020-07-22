@@ -2,7 +2,6 @@ package ru.progwards.java2.lessons.recurtion.hanoyTower;
 
 import java.util.LinkedList;
 
-
 public class HanoyTower {
     private LinkedList<Ring>[] tower;
     private final String separator = System.lineSeparator();
