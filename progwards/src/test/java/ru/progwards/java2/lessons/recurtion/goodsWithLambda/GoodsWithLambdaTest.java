@@ -2,6 +2,9 @@ package ru.progwards.java2.lessons.recurtion.goodsWithLambda;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ru.progwards.java2.lessons.recurtion.Goods;
+import ru.progwards.java2.lessons.recurtion.GoodsWithLambda;
+
 import java.time.Instant;
 import java.util.List;
 

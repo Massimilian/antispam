@@ -2,7 +2,7 @@ package ru.progwards.java2.lessons.recurtion.hanoiTower;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.progwards.java2.lessons.recurtion.hanoyTower.HanoyTower;
+import ru.progwards.java2.lessons.recurtion.HanoyTower;
 
 
 public class HanoyTowerTest {

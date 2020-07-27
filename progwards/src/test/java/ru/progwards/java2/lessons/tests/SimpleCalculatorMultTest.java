@@ -10,17 +10,17 @@ import java.util.Arrays;
 @RunWith(Parameterized.class)
 public class SimpleCalculatorMultTest {
     private SimpleCalculator sc = new SimpleCalculator();
-
-    @Parameterized.Parameter(0)
     public int val1;
-
-    @Parameterized.Parameter(1)
     public int val2;
-
-    @Parameterized.Parameter(2)
     public int result;
 
-    @Parameterized.Parameters(name = "Test №{index}: {0} * {1} = {2}")
+    public SimpleCalculatorMultTest(int val1, int val2, int result) {
+        this.val1 = val1;
+        this.val2 = val2;
+        this.result = result;
+    }
+
+    @Parameterized.Parameters() // name = "Test №{index}: {0} * {1} = {2}"
     public static Iterable<Object> forTest() {
         return Arrays.asList(new Object[][]{
                 {1, 3, 3},

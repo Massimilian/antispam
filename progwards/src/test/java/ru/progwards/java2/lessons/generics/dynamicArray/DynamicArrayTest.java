@@ -2,6 +2,7 @@ package ru.progwards.java2.lessons.generics.dynamicArray;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ru.progwards.java2.lessons.generics.DynamicArray;
 
 public class DynamicArrayTest {
     private DynamicArray<Integer> dai = new DynamicArray();
@@ -28,16 +29,15 @@ public class DynamicArrayTest {
         dai.add(2);
         dai.insert(0, 0);
         Assert.assertEquals(dai.get(0) == 0, true);
-        Assert.assertEquals(dai.get(1) == 1, true);
-        Assert.assertEquals(dai.get(2) == 2, true);
-        Assert.assertEquals(dai.get(3) == null, true);
+        Assert.assertEquals(dai.get(1) == 2, true);
+        Assert.assertEquals(dai.get(2) == null, true);
     }
 
     @Test
     public void WhenTryToRemoveThenCheckStringValues() {
         das.add("one");
         das.add("two");
-        das.insert("0", 0);
+        das.insert(0, "0");
         Assert.assertEquals(das.get(0).equals("0"), true);
         das.remove(0);
         Assert.assertEquals(das.get(0) == null, true);

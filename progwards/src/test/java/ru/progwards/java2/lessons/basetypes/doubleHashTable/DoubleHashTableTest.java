@@ -2,6 +2,8 @@ package ru.progwards.java2.lessons.basetypes.doubleHashTable;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ru.progwards.java2.lessons.basetypes.DoubleHashTable;
+import ru.progwards.java2.lessons.basetypes.DoubleHashTableObject;
 
 import java.util.Iterator;
 import java.util.regex.Matcher;

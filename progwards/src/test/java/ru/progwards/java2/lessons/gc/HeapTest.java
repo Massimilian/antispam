@@ -2,9 +2,6 @@ package ru.progwards.java2.lessons.gc;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.progwards.java2.lessons.gc.heap.Heap;
-import ru.progwards.java2.lessons.gc.heap.InvalidPointerException;
-import ru.progwards.java2.lessons.gc.heap.OutOfMemoryException;
 
 import static org.junit.Assert.assertTrue;
 

@@ -1,5 +1,9 @@
 package ru.progwards.java2.lessons.gc.heap;
 
+import ru.progwards.java2.lessons.gc.Heap;
+import ru.progwards.java2.lessons.gc.InvalidPointerException;
+import ru.progwards.java2.lessons.gc.OutOfMemoryException;
+
 import java.util.ArrayDeque;
 import java.util.concurrent.ThreadLocalRandom;
 

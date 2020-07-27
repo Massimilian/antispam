@@ -2,6 +2,7 @@ package ru.progwards.java2.lessons.basetypes.bidirlist;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ru.progwards.java2.lessons.basetypes.BiDirList;
 
 import java.util.Iterator;
 

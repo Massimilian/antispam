@@ -2,6 +2,7 @@ package ru.progwards.java2.lessons.generics.arraySort;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ru.progwards.java2.lessons.generics.ArraySort;
 
 public class ArraySortTest {
     private ArraySort as = new ArraySort();

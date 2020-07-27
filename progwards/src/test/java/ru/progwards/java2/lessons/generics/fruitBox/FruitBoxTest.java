@@ -2,6 +2,9 @@ package ru.progwards.java2.lessons.generics.fruitBox;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ru.progwards.java2.lessons.generics.Apple;
+import ru.progwards.java2.lessons.generics.FruitBox;
+import ru.progwards.java2.lessons.generics.Orange;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,24 +1,27 @@
-package ru.progwards.java2.lessons.tests;
+package ru.progwards.java2.lessons.tests.calc.tests;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import ru.progwards.java2.lessons.tests.SimpleCalculator;
 
 import java.util.Arrays;
 
 @RunWith(Parameterized.class)
 public class SimpleCalculatorAddTest {
-    private SimpleCalculator sc = new SimpleCalculator();
+
     public int val1;
     public int val2;
     public int result;
+    private SimpleCalculator sc = new SimpleCalculator();
 
     public SimpleCalculatorAddTest(int val1, int val2, int result) {
         this.val1 = val1;
         this.val2 = val2;
         this.result = result;
     }
+
 
     @Parameterized.Parameters() // name = "Test №{index}: {0} + {1} = {2}"
     public static Iterable<Object> forTest() {
