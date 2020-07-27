@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class FruitBox {
     private ArrayList<Fruit> list = new ArrayList();
+
     public boolean add(ArrayList<? extends Fruit> news) {
         boolean added;
         if (list.isEmpty()) {
@@ -46,7 +47,7 @@ public class FruitBox {
     }
 
 
-        public float getWeight() {
+    public float getWeight() {
         return list.stream().map(o -> o.getWeight()).reduce(0f, (o1, o2) -> o1 + o2);
     }
 

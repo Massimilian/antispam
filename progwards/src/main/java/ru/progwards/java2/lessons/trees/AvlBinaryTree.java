@@ -2,7 +2,7 @@ package ru.progwards.java2.lessons.trees;
 
 import java.util.function.Consumer;
 
-public class AvlBinaryTree <K extends Comparable, V> {
+public class AvlBinaryTree<K extends Comparable, V> {
     private AvlTreeLeaf<K, V> root;
 
     public V find(K key) {
