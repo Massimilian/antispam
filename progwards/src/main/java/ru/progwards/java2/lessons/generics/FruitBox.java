@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class FruitBox {
     private ArrayList<Fruit> list = new ArrayList();
-
     public boolean add(ArrayList<? extends Fruit> news) {
         boolean added;
         if (list.isEmpty()) {
