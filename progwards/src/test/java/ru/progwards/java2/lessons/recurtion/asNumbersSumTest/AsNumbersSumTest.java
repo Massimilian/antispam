@@ -7,6 +7,6 @@ import ru.progwards.java2.lessons.recurtion.AsNumbersSum;
 public class AsNumbersSumTest {
     @Test
     public void WhenTryTuPutDifferentNumbersToGetSumThenDoIt() {
-        System.out.println(AsNumbersSum.asNumbersSum(10));
+        System.out.println(AsNumbersSum.asNumbersSum(7));
     }
 }

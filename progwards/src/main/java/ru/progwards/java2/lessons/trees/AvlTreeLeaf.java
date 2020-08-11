@@ -8,7 +8,7 @@ public class AvlTreeLeaf<K extends Comparable, V> {
     private AvlTreeLeaf parent;
     private AvlTreeLeaf left;
     private AvlTreeLeaf right;
-    int balance = 0;
+    private int balance = 0;
 
     public K getKey() {
         return key;
@@ -22,15 +22,17 @@ public class AvlTreeLeaf<K extends Comparable, V> {
         return value;
     }
 
+    public int getBalance() {
+        return balance;
+    }
+
     public AvlTreeLeaf getParent() {
         return parent;
     }
 
-
     public AvlTreeLeaf getLeft() {
         return left;
     }
-
 
     public AvlTreeLeaf getRight() {
         return right;
@@ -88,6 +90,8 @@ public class AvlTreeLeaf<K extends Comparable, V> {
     }
 
     void delete() throws TreeException {
+//        checkBalanceForDel(this.parent, this, 0); // old version
+        checkBalanceForDel();
         if (parent.right == this) { // проверка на то, что значение является правым потомком родителя
             parent.right = right; // родителя присваиваем значение правого потомка
             if (right != null) {// а если он не нулевой (если нулевой - просто сохранится ссылка на null)
@@ -97,12 +101,53 @@ public class AvlTreeLeaf<K extends Comparable, V> {
                 parent.find(left.key).add(left); // просто добавляем его в таблицу
             }
         } else { // если же значение не является правым потомком - оно является левым потомком
-            parent.left = left; // родителю присваиваем значение левого потомка
+            parent.left = this.left; // родителю присваиваем значение левого потомка
             if (left != null) {// если значение не нулевое
                 left.parent = parent; // то  указываем левому потомку на нового родителя
             }
             if (right != null) { // если правый потомок не нулевой
                 parent.find(right.key).add(right); // то присоединяем его к дереву на общих основаниях
+            }
+        }
+    }
+
+    private void fatherTurn (AvlTreeLeaf leaf) {
+        while (leaf.getParent() != null) {
+            if (leaf.getParent().getLeft() != null && leaf.getParent().getLeft().equals(leaf)) {
+                leaf = leaf.getParent();
+                if (leaf.balance == -2) {
+                    balance(leaf, true);
+                    break;
+                }
+            } else {
+                leaf = leaf.getParent();
+                leaf.balance++;
+                if (leaf.balance == 2) {
+                    balance(leaf, false);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void checkBalanceForDel() {
+        if (this.parent != null) {
+            if (this.parent.getRight() == this) {
+                this.parent.balance--;
+                if (parent.getLeft() == null) {
+                    AvlTreeLeaf<K, V> temp = this.parent;
+                    temp.getParent().balance++;
+                }
+            }
+            if (this.parent.getLeft() == this) {
+                this.parent.balance++;
+                if (parent.getRight() == null) {
+                    AvlTreeLeaf<K, V> temp = this.parent;
+                    temp.getParent().balance--;
+                }
+                if (this.getLeft() == null && this.getRight() != null) {
+                    parent.balance++;
+                }
             }
         }
     }
@@ -118,6 +163,11 @@ public class AvlTreeLeaf<K extends Comparable, V> {
         consumer.accept(this); // если левое значение отсутствует - значит, проделываем работу с данным значением
         if (right != null) // если правое значение не равно нолю
             right.process(consumer); // тогда переходим туда. Но  - важно! - только после левого. Именно благодаря этому порядку значения будут выводиться по возрастающей.
+    }
+
+    private void renewBalance() {
+        int right = 0;
+        int left = 0;
     }
 
     private void checkBalance(AvlTreeLeaf temp) {
@@ -140,71 +190,121 @@ public class AvlTreeLeaf<K extends Comparable, V> {
                     temp.balance--;
                     if (temp.balance == -2) {
                         balance(temp, true);
+                        break;
                     }
                 } else {
                     temp = temp.getParent();
                     temp.balance++;
                     if (temp.balance == 2) {
                         balance(temp, false);
+                        break;
                     }
                 }
             }
         }
     }
 
-    private void balance(AvlTreeLeaf temp, boolean type) {
-        AvlTreeLeaf leaf = type ? temp.getLeft() : temp.getRight();
-        if (findTreeHeight(leaf.getRight()) < findTreeHeight(leaf.getLeft())) {
-            smallRotation(temp, leaf, type ? leaf.getRight() : leaf.getLeft());
-        } else {
-            AvlTreeLeaf selected = type ? leaf.getRight() : leaf.getLeft();
-            bigRotation(temp, leaf, selected, type ? selected.getRight() : selected.getLeft(), type ? selected.getLeft() : selected.getRight());
-        }
-    }
-
-    private void smallRotation(AvlTreeLeaf top, AvlTreeLeaf around, AvlTreeLeaf jumper) {
-        System.out.println(top.getValue());
-        System.out.println(around.getValue());
-        System.out.println(jumper.getValue());
-        AvlTreeLeaf temp = jumper;
-        around.setRight(top);
-        top.setParent(around);
-        top.setLeft(jumper);
-        jumper.setParent(top);
-        System.out.println("Small rotation.");
-    }
-
-    private void bigRotation(AvlTreeLeaf secondTop, AvlTreeLeaf firstTop, AvlTreeLeaf around, AvlTreeLeaf secondJumper, AvlTreeLeaf firstJumper) {
-        smallRotation(firstTop, around, firstJumper);
-        smallRotation(secondTop, around, secondJumper);
-        System.out.println("Big rotattion.");
-    }
-
-    private int findTreeHeight(AvlTreeLeaf avl) {
-        int result = 0;
-        if (avl != null) {
-            int depth = 1;
-            while (avl.getLeft() != null) {
-                avl = avl.getLeft();
-                depth++;
+        public void balance (AvlTreeLeaf temp,boolean leftBigger){
+            AvlTreeLeaf leaf;
+            System.out.println("Rotation");
+            if (leftBigger) { // перевешивает левая сторона
+                leaf = temp.getLeft();
+                //if (findTreeHeight(leaf.getRight()) < findTreeHeight(leaf.getLeft())) {
+                if (leaf.balance <= 0) {
+                    smallRightRotation(temp, leaf, leaf.getRight());
+                } else {
+                    smallLeftRotation(leaf, leaf.getRight(), leaf.getRight().getLeft());
+                    leaf = leaf.getParent();
+                    smallRightRotation(leaf.getParent(), leaf, leaf.getRight());
+                }
+            } else { // перевешивает правая сторона
+                leaf = temp.getRight();
+                if (leaf.balance >= 0) {
+                    smallLeftRotation(temp, leaf, leaf.getLeft());
+                } else {
+                    smallRightRotation(leaf, leaf.getLeft(), leaf.getLeft().getRight());
+                    leaf = leaf.getParent();
+                    smallLeftRotation(leaf.getParent(), leaf, leaf.getLeft());
+                }
             }
-            result = depth;
-            while (depth != 1) {
-                if (avl.getLeft() != null) {
+//        checkBalance(leaf); // надо ли?
+        }
+
+        private void smallRightRotation (AvlTreeLeaf top, AvlTreeLeaf around, AvlTreeLeaf jumper){
+            AvlTreeLeaf mainParent = top.getParent() != null ? top.getParent() : null;
+            around.setRight(top);
+            around.setParent(mainParent);
+            around.balance++; // new
+            if (mainParent != null) {
+//            mainParent.setRight(around);
+                if (mainParent.getRight() != null && mainParent.getRight() == top) {
+                    mainParent.setRight(around);
+                } else {
+                    mainParent.setLeft(around);
+//                mainParent.balance = mainParent.balance + 1;
+                }
+            }
+            top.setParent(around);
+            top.setLeft(jumper);
+            top.balance = top.balance + 2; // new
+            if (jumper != null) {
+                jumper.setParent(top);
+            }
+        }
+
+        private void smallLeftRotation (AvlTreeLeaf top, AvlTreeLeaf around, AvlTreeLeaf jumper){
+            AvlTreeLeaf mainParent = top.getParent() != null ? top.getParent() : null;
+            around.setLeft(top); // new
+            around.setParent(mainParent);
+            around.balance--; // new
+            if (mainParent != null) {
+                if (mainParent.getRight() != null && mainParent.getRight() == top) {
+                    mainParent.setRight(around);
+                } else {
+                    mainParent.setLeft(around);
+                }
+            }
+            top.setParent(around);
+            top.setRight(jumper);
+            top.balance = top.balance - 2; // new
+            if (jumper != null) {
+                jumper.setParent(top);
+            }
+        }
+
+        private int findTreeHeight (AvlTreeLeaf avl){
+            int result = 0;
+            if (avl != null) {
+                int depth = 1;
+                while (avl.getLeft() != null) {
                     avl = avl.getLeft();
                     depth++;
-                } else if (avl.getRight() != null) {
-                    avl = avl.getRight();
-                    depth++;
-                } else {
-                    while (avl.getParent() != null && avl.getRight() == null) {
-                        avl = avl.getParent();
-                        depth--;
-                    }
                 }
-                result = Math.max(depth, result);
+                result = depth;
+                do {
+                    if (avl.getLeft() != null) {
+                        avl = avl.getLeft();
+                        depth++;
+                    } else if (avl.getRight() != null) {
+                        avl = avl.getRight();
+                        depth++;
+                    } else {
+                        while (avl.getParent() != null && avl.getRight() == null) {
+                            avl = avl.getParent();
+                            depth--;
+                        }
+                    }
+                    result = Math.max(depth, result);
+                } while (depth > 1);
             }
+            return result;
         }
-        return result;
+
+        public int setBalance (AvlTreeLeaf < K, V > leaf){
+            return leaf.balance;
+        }
+
+        public void cutRoot () {
+            this.parent = null;
+        }
     }
-}

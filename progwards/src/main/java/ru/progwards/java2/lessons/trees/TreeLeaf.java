@@ -105,4 +105,8 @@ class TreeLeaf<K extends Comparable<K>, V> {
         if (right != null) // если правое значение не равно нолю
             right.process(consumer); // тогда переходим туда. Но  - важно! - только после левого. Именно благодаря этому порядку значения будут выводиться по возрастающей.
     }
+
+    public void cutRoot() {
+        this.parent = null;
+    }
 }

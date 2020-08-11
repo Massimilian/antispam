@@ -1,7 +1,9 @@
 package ru.progwards.java2.lessons.recurtion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class AsNumbersSum {
@@ -45,14 +47,22 @@ public class AsNumbersSum {
     }
 
     private static String finalPrepare(ArrayList<ArrayList<Integer>> list) {
-        StringBuilder result = new StringBuilder();
+        StringBuilder finalResult = new StringBuilder();
+        ArrayList<String> complex = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
+            StringBuilder result = new StringBuilder();
             result.append(list.get(i).get(0));
             for (int j = 1; j < list.get(i).size(); j++) {
                 result.append(String.format("+%s", String.valueOf(list.get(i).get(j))));
             }
-            result.append(" = ");
+            complex.add(result.toString());
         }
-        return result.substring(0, result.length() - 3);
+
+        complex = (ArrayList<String>) complex.stream().distinct().collect(Collectors.toList());
+        for (int i = 0; i < complex.size(); i++) {
+            finalResult.append(complex.get(i));
+            finalResult.append(" = ");
+        }
+        return finalResult.substring(0, finalResult.length() - 3);
     }
 }

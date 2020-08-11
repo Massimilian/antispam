@@ -1,13 +1,13 @@
 package ru.progwards.java2.lessons;
 
-import java.util.Comparator;
-import java.util.TreeMap;
+import ru.progwards.java2.lessons.trees.InsertSort;
 
 public class Main {
     public static void main(String[] args) {
-        BTree<Integer, Integer> tree = new BTree<>();
-        tree.add(0, 0);
-        tree.add(1, 1);
-        tree.add(2, 2);
+        InsertSort is= new InsertSort();
+        int[] sorted = is.sort(new int[]{6, 0, 5, 3, 2, 1, 4});
+        for (int i = 0; i < sorted.length; i++) {
+            System.out.print(sorted[i] + " ");
+        }
     }
 }
