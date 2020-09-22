@@ -10,9 +10,9 @@ import java.util.Random;
 public class BinaryTreeAndAvlBinaryTreeSpeedTest {
     StringBuilder sb = new StringBuilder();
     int size = 10000;
-    BinaryTree<Integer, Character> bt = new BinaryTree<>();
-    AvlBinaryTree<Integer, Character> abt = new AvlBinaryTree<>();
-    ArrayList<Character> list = this.prepare();
+    BinaryTree<Integer, Integer> bt = new BinaryTree<>();
+    AvlBinaryTree<Integer, Integer> abt = new AvlBinaryTree<>();
+    ArrayList<Integer> list = this.prepare();
     Instant start;
     Instant end;
     Duration dur;
@@ -60,6 +60,9 @@ public class BinaryTreeAndAvlBinaryTreeSpeedTest {
         start = Instant.now();
         for (int i = 0; i < size; i++) {
             bt.delete(i);
+            if (i == 2049) {
+                System.out.println("Stop");
+            }
         }
         end = Instant.now();
         dur = Duration.between(start, end);
@@ -82,6 +85,10 @@ public class BinaryTreeAndAvlBinaryTreeSpeedTest {
         start = Instant.now();
         for (int i = size - 1; i >= 0; i--) {
             abt.delete(i);
+            System.out.println(i);
+            if (i == 2049) {
+                System.out.println();
+            }
         }
         end = Instant.now();
         dur = Duration.between(start, end);
@@ -206,10 +213,10 @@ public class BinaryTreeAndAvlBinaryTreeSpeedTest {
         System.out.println(s);
     }
 
-    private ArrayList<Character> prepare() {
-        ArrayList<Character> list = new ArrayList<>();
+    private ArrayList<Integer> prepare() {
+        ArrayList<Integer> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            list.add((char) i);
+            list.add(i);
         }
         return list;
     }

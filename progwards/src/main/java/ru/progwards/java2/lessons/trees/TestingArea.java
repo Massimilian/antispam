@@ -4,24 +4,33 @@ import java.util.function.Consumer;
 
 public class TestingArea {
     public static void main(String[] args) throws TreeException {
-        AvlBinaryTree<Integer, Integer> abt = new AvlBinaryTree<>();
-        Consumer<AvlTreeLeaf<Integer, Integer>> consumer = new Consumer<>() {
+        AvlTree<Integer, Integer> at = new AvlTree<>();
+
+        Consumer<AvlLeaf<Integer, Integer>> consumer = new Consumer<AvlLeaf<Integer, Integer>>() {
             @Override
-            public void accept(AvlTreeLeaf<Integer, Integer> integerIntegerAvlTreeLeaf) {
-                System.out.println(integerIntegerAvlTreeLeaf.getValue() + " - " + integerIntegerAvlTreeLeaf.getBalance());
+            public void accept(AvlLeaf<Integer, Integer> integerIntegerAvlLeaf) {
+                System.out.println("Value: " + integerIntegerAvlLeaf.getValue() + "; balance: " + integerIntegerAvlLeaf.getBalance());
             }
         };
-        for (int i = 0; i < 27; i++) {
-            abt.add(i, i);
+        int[] ints = {7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14};
+        for (int i = 0; i < ints.length; i++) {
+            at.add(new AvlLeaf<>(ints[i], ints[i]));
         }
-        abt.process(consumer);
-        System.out.println();
-        for (int i = 0; i < 27; i++) {
-            abt.delete(i);
-            abt.process(consumer);
-            System.out.println();
-        }
-        System.out.println();
-   }
 
+        at.delete(1);
+        at.process(consumer);
+        System.out.println();
+        at.delete(0);
+        at.process(consumer);
+        System.out.println();
+        at.delete(2);
+        at.process(consumer);
+        System.out.println();
+        at.delete(6);
+        at.process(consumer);
+        System.out.println();
+        at.delete(4);
+        at.process(consumer);
+        System.out.println();
+    }
 }

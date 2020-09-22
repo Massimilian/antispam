@@ -204,9 +204,9 @@ public class AvlTreeLeaf<K extends Comparable, V> {
         }
     }
 
-        public void balance (AvlTreeLeaf temp,boolean leftBigger){
+        public void balance (AvlTreeLeaf temp, boolean leftBigger){
             AvlTreeLeaf leaf;
-            System.out.println("Rotation");
+//            System.out.println("Rotation");
             if (leftBigger) { // перевешивает левая сторона
                 leaf = temp.getLeft();
                 //if (findTreeHeight(leaf.getRight()) < findTreeHeight(leaf.getLeft())) {
